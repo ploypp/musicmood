@@ -59,96 +59,7 @@ def noRepeatWord(list):
 
 @app.route("/")
 def main_handler():
-    emojihub = []
-    emojitext = ""
-    tabtext = ""
-    for i in emojilist:
-        if " " not in i["codePoint"] and i["codePoint"] not in emojihub:
-            emojihub.append(i["codePoint"])
-    # for i in emojihub:
-    #     emojitext += f"<button type='button' id='{i}' class='emojibtn' onClick='myFunction(this)'>&#x{i}</button>\n"
-    for i in emojiGroups:
-        tabtext += f"<button class='w3-bar-item w3-button' onclick='openEmojiGroup('{i}')'>{i}</button>\n"
-    for i in emojiGroups:
-        emojitext += f"""
-                    <div id='{i}' class='w3-container group' style='display:none'>
-                      <h2>{i}</h2>
-                      <button type='button' id='{emojiGroups[i]}' class='emojibtn' onClick='myFunction(this)'>&#x{emojiGroups[i]}</button>\n 
-                    </div>\n
-                    """
-    # with open('templates/index.html', 'w') as htmlfile:
-    #     htmlfile.write("""<!DOCTYPE html>\n
-    #             <html>
-    #             <head>
-    #                 <meta charset="UTF-8">
-    #                 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    #                 <title>Music Mood</title>
-    #                 <style>
-    #                     body{font-family:Helvetica,Arial,sans-serif;font-size:16px;}
-    #                     .emojibtn{display:inline;background:transparent;border-color:transparent;}
-    #                 </style>
-    #             </head>
-    #             <body>""")
-    #     htmlfile.write("""
-    #                     <h1>Instructions</h1>
-    #                     <p>1. Click to select emoji(s) of your choice</p>
-    #                     <p>2. Hit "GO" button</p>
-    #                     <p>3. Explore your Spotify track</p>
-    #                     """)
-    #     # htmlfile.write("<form action='response' onSubmit='onSubmit()'>")
-    #     htmlfile.write("""
-    #                     <form action='response' method='post'>
-    #                     <div class="w3-bar w3-black">
-    #                     """)
-    #     htmlfile.write(f"{tabtext}")
-    #     htmlfile.write("""
-    #                     </div>
-    #                     """)
-    #
-    #     htmlfile.write(f"{emojitext}")
-    #
-    #     # htmlfile.write(f"<script>function getInputValue() var inputVal = document.getElementById('{i}').value;")
-    #     htmlfile.write("""
-    #                    <input type='text' id='emojilist' name='emojilist' readonly='readonly'/><br />
-    #                    <input type='submit' value='Go' name='gobtn'></form>
-    #                    """)
-    #     htmlfile.write("""
-    #                    <script>
-    #                     const list = [];
-    #                     function myFunction(obj) {
-    #                       document.getElementById(obj.id).style.backgroundColor = 'wheat'
-    #                       if (list.includes(obj.id) === false) {
-    #                         list.push(obj.id)
-    #                         document.getElementById("emojilist").value = list
-    #                       }
-    #                     }
-    #                     function openEmojiGroup(groupName) {
-    #                       var i;
-    #                       var x = document.getElementsByClassName("group");
-    #                       for (i = 0; i < x.length; i++) {
-    #                         x[i].style.display = "none";
-    #                       }
-    #                       document.getElementById(groupName).style.display = "block";
-    #                     }
-    #                     </script>
-    #                    """)
-    #     htmlfile.write("</body></html>")
     return render_template('index.html', page_title="Emoji Input")
-
-# with open('templates/response.html', 'w') as htmlfile:
-#     htmlfile.write("""<!DOCTYPE html>
-#     <html><head><meta charset="UTF-8"><title>Music Mood</title>
-#     <style>
-#         body{font-family:Helvetica,Arial,sans-serif;font-size:16px;}
-#         img{display:inline;}
-#     </style>
-#     </head><body>""")
-#     htmlfile.write("""
-#                 {% if input %}
-#                 <a href="{{input}}">Link to spotify track</a>
-#                 {% endif %}
-#     """)
-#     htmlfile.write("</body></html>")
 
 class spotiClient():
     def __init__(self):
@@ -157,7 +68,7 @@ class spotiClient():
 
     def spotifyAuth(self):
         import base64
-        authorization = base64.standard_b64encode(("9f8d403081d944b58ca9788d1e9015a3" +
+        authorization = base64.standard_b64encode((keys.spotifyid +
                                                    ':' + keys.spotifykey).encode())
         headers = {"Authorization": "Basic " + authorization.decode()}
         params = {"grant_type": "client_credentials"}
