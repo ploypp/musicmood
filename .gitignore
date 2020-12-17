@@ -1,0 +1,7 @@
+.DS_Store
+*.idea/
+lib/
+keys.py
+venv/
+__pycache__/
+google-cloud-sdk/
